@@ -1,29 +1,34 @@
+// components/ProductGrid.js
 import React from 'react';
 import ProductCard from './ProductCard';
+import { products } from '../data/products';
 
-// Sample product data
-const sampleProduct = {
-  id: 1,
-  title: 'Wireless Headphones',
-  price: 99.99,
-  category: 'electronics',
-  brand: 'TechCorp',
-  image: 'https://www.computerhope.com/jargon/j/javascript.png',
-  rating: 4.5,
-  description: 'High-quality wireless headphones with noise cancellation.'
-};
-
-function ProductGrid() {
-  // In a real app, this would come from an API or state
-  const products = [sampleProduct, sampleProduct, sampleProduct, sampleProduct, sampleProduct, sampleProduct, sampleProduct];
-  
+const ProductGrid = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {products.map((product, index) => (
-        <ProductCard key={index} product={product} />
-      ))}
+    <div className="flex-1">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">
+          Products ({products.length})
+        </h2>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {products.map(product => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+
+      {/* Load More Button (for show) */}
+      <div className="text-center mt-12">
+        <button
+          onClick={() => console.log('Loading more products...')}
+          className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-medium transition-colors"
+        >
+          Load More Products
+        </button>
+      </div>
     </div>
   );
-}
+};
 
 export default ProductGrid;

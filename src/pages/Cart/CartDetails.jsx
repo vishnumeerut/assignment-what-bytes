@@ -1,65 +1,17 @@
+// components/CartDetails.js
 import React from 'react';
 import { Minus, Plus, Trash2, ArrowLeft, ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../contexts/CartContext';
 
 const CartDetails = () => {
   const navigate = useNavigate();
-  
-  // Sample cart data - in a real app this would come from context or state management
-  const [cartItems, setCartItems] = React.useState([
-    {
-      id: 1,
-      title: 'Wireless Headphones',
-      price: 99.99,
-      image: '/api/placeholder/300/200',
-      quantity: 2,
-      brand: 'TechCorp'
-    },
-    {
-      id: 2,
-      title: 'Cotton T-Shirt',
-      price: 24.99,
-      image: '/api/placeholder/300/200',
-      quantity: 1,
-      brand: 'FashionBrand'
-    },
-    {
-      id: 3,
-      title: 'JavaScript Guide',
-      price: 39.99,
-      image: '/api/placeholder/300/200',
-      quantity: 1,
-      brand: 'TechBooks'
-    }
-  ]);
-
-  // Calculate total price
-  const totalPrice = cartItems.reduce((total, item) => {
-    return total + (item.price * item.quantity);
-  }, 0);
+  const { cartItems, updateQuantity, removeFromCart, clearCart, getCartTotal } = useCart();
 
   // Calculate total items
   const totalItems = cartItems.reduce((total, item) => {
     return total + item.quantity;
   }, 0);
-
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity < 1) return;
-    
-    setCartItems(prevItems => 
-      prevItems.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  const removeItem = (id) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
-  };
-
-  const clearCart = () => {
-    setCartItems([]);
-  };
 
   if (cartItems.length === 0) {
     return (
@@ -166,7 +118,7 @@ const CartDetails = () => {
                           ${(item.price * item.quantity).toFixed(2)}
                         </p>
                         <button
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => removeFromCart(item.id)}
                           className="text-red-600 hover:text-red-800 p-1"
                           title="Remove item"
                         >
@@ -188,7 +140,7 @@ const CartDetails = () => {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal ({totalItems} items)</span>
-                  <span className="font-medium">${totalPrice.toFixed(2)}</span>
+                  <span className="font-medium">${getCartTotal().toFixed(2)}</span>
                 </div>
                 
                 <div className="flex justify-between">
@@ -198,13 +150,13 @@ const CartDetails = () => {
                 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Tax</span>
-                  <span className="font-medium">${(totalPrice * 0.08).toFixed(2)}</span>
+                  <span className="font-medium">${(getCartTotal() * 0.08).toFixed(2)}</span>
                 </div>
                 
                 <div className="border-t pt-4">
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
-                    <span>${(totalPrice * 1.08).toFixed(2)}</span>
+                    <span>${(getCartTotal() * 1.08).toFixed(2)}</span>
                   </div>
                 </div>
               </div>
