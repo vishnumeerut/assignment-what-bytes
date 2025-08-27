@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { Search, ShoppingCart, User, Gift } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [cartItemsCount] = useState(3); // Example cart count
+
+  const navigate = useNavigate();
+
+  const handleCartClick = () => {
+    navigate('/cart');
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -14,7 +21,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 cursor-pointer">
             <Gift className="h-8 w-8 text-indigo-600" />
             <span className="text-xl font-bold text-gray-900">ShopEaster</span>
           </div>
@@ -36,7 +43,7 @@ const Header = () => {
           {/* Cart and Profile */}
           <div className="flex items-center space-x-4">
             <button className="relative p-2 hover:bg-gray-100 rounded-full transition-all">
-              <ShoppingCart className="h-6 w-6 text-gray-700" />
+              <ShoppingCart onClick={handleCartClick} className="h-6 w-6 text-gray-700 cursor-pointer" />
               {cartItemsCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {cartItemsCount}
