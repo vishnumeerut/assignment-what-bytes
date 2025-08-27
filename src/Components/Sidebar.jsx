@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Filter } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Filter, X, Sliders } from 'lucide-react';
 
 const Sidebar = () => {
   const [filters, setFilters] = useState({
@@ -8,9 +8,26 @@ const Sidebar = () => {
     brand: ''
   });
 
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   // Sample categories and brands
   const categories = ['electronics', 'clothing', 'books', 'home', 'sports'];
   const brands = ['TechCorp', 'FashionBrand', 'TechBooks', 'HomeEssentials', 'SportGear'];
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
 
   const updateFilter = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }));
@@ -24,8 +41,13 @@ const Sidebar = () => {
     });
   };
 
-  return (
-    <aside className="w-64 bg-white p-6 rounded-lg shadow-sm h-fit sticky top-20">
+  const toggleMobileSidebar = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
+  };
+
+  // Sidebar content component to avoid duplication
+  const SidebarContent = () => (
+    <div className="bg-white p-6 rounded-lg shadow-sm h-full overflow-y-auto">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-lg text-gray-900">Filters</h3>
         <Filter className="h-5 w-5 text-gray-500" />
@@ -95,6 +117,52 @@ const Sidebar = () => {
       >
         Clear All Filters
       </button>
+    </div>
+  );
+
+  // Mobile filter button and overlay sidebar
+  if (isMobile) {
+    return (
+      <>
+        {/* Mobile filter button */}
+        <button
+          onClick={toggleMobileSidebar}
+          className="md:hidden fixed bottom-6 right-6 z-40 bg-indigo-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center"
+        >
+          <Sliders className="h-6 w-6" />
+        </button>
+
+        {/* Mobile sidebar overlay */}
+        {isMobileSidebarOpen && (
+          <div className="fixed inset-0 z-50 flex">
+            {/* Backdrop */}
+            <div 
+              className="fixed inset-0 bg-black bg-opacity-50"
+              onClick={toggleMobileSidebar}
+            ></div>
+            
+            {/* Sidebar */}
+            <div className="relative bg-white w-80 h-full overflow-y-auto transform transition-transform duration-300 z-50">
+              <div className="sticky top-0 bg-white z-10 p-4 border-b flex justify-between items-center">
+                <h2 className="text-xl font-bold">Filters</h2>
+                <button onClick={toggleMobileSidebar}>
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              <div className="p-4">
+                <SidebarContent />
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
+
+  // Desktop sidebar
+  return (
+    <aside className="w-64 h-fit sticky top-20">
+      <SidebarContent />
     </aside>
   );
 };
