@@ -1,6 +1,7 @@
 
 import './App.css'
 import Header from './Components/Header';
+import ProductGrid from './Components/ProductGrid';
 import Sidebar from './Components/Sidebar';
 
 function App() {
@@ -12,8 +13,9 @@ function App() {
           <Sidebar />
           {/* Your main content area */}
           <div className="flex-1">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Products</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">All Products...</h2>
             {/* Product grid or list would go here */}
+            <ProductGrid />
           </div>
         </div>
       </div>
