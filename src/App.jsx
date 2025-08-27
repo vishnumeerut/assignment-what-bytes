@@ -1,25 +1,24 @@
 
 import './App.css'
-import Header from './Components/Header';
-import ProductGrid from './Components/ProductGrid';
-import Sidebar from './Components/Sidebar';
+
+
+
+
+// In your main App.js or similar
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import CartDetails from './pages/Cart/CartDetails';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex gap-8">
-          <Sidebar />
-          {/* Your main content area */}
-          <div className="flex-1">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">All Products...</h2>
-            {/* Product grid or list would go here */}
-            <ProductGrid />
-          </div>
-        </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/cart" element={<CartDetails />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 

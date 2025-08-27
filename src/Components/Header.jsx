@@ -47,6 +47,7 @@ const Header = () => {
             <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
               <User className="h-6 w-6 text-gray-700" />
             </button>
+            
           </div>
         </div>
       </div>
