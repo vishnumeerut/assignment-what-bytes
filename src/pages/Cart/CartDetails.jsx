@@ -62,7 +62,7 @@ const CartDetails = () => {
                 <h2 className="text-xl font-bold text-gray-900">Cart Items</h2>
                 <button
                   onClick={clearCart}
-                  className="text-red-600 hover:text-red-800 text-sm font-medium"
+                  className="text-red-600 hover:text-red-800 text-sm font-medium cursor-pointer"
                 >
                   Clear Cart
                 </button>
@@ -99,7 +99,7 @@ const CartDetails = () => {
                           className="p-1 rounded-md hover:bg-gray-100 transition-colors"
                           disabled={item.quantity <= 1}
                         >
-                          <Minus className="h-4 w-4" />
+                          <Minus className="h-4 w-4 cursor-pointer" />
                         </button>
                         
                         <span className="w-8 text-center font-medium">{item.quantity}</span>
@@ -108,7 +108,7 @@ const CartDetails = () => {
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           className="p-1 rounded-md hover:bg-gray-100 transition-colors"
                         >
-                          <Plus className="h-4 w-4" />
+                          <Plus className="h-4 w-4 cursor-pointer" />
                         </button>
                       </div>
 
@@ -119,7 +119,7 @@ const CartDetails = () => {
                         </p>
                         <button
                           onClick={() => removeFromCart(item.id)}
-                          className="text-red-600 hover:text-red-800 p-1"
+                          className="text-red-600 hover:text-red-800 p-1 cursor-pointer"
                           title="Remove item"
                         >
                           <Trash2 className="h-5 w-5" />
@@ -161,13 +161,13 @@ const CartDetails = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium transition-colors mb-4">
+              <button onClick={() => navigate("/")} className="w-full cursor-pointer  bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium transition-colors mb-4">
                 Proceed to Checkout
               </button>
               
               <button
                 onClick={() => navigate('/')}
-                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-medium transition-colors"
+                className="w-full bg-gray-100 cursor-pointer hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-medium transition-colors"
               >
                 Continue Shopping
               </button>

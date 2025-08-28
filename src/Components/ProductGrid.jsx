@@ -49,17 +49,6 @@ const ProductGrid = () => {
             ))}
           </div>
 
-          {/* Load More Button (for show) */}
-          {!searchQuery && priceRange[1] >= 300 && !categoryFilter && !brandFilter && (
-            <div className="text-center mt-12">
-              <button
-                onClick={() => console.log('Loading more products...')}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-medium transition-colors"
-              >
-                Load More Products
-              </button>
-            </div>
-          )}
         </>
       )}
     </div>

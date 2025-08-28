@@ -6,7 +6,7 @@ export const products = [
       price: 99.99,
       category: 'electronics',
       brand: 'TechCorp',
-      image: 'https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736400_1280.png',
+      image: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MQTP3?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=SUFReFd6NEVVOW50TTcxUzVyWlhHZ2tuVHYzMERCZURia3c5SzJFOTlPZ3oveDdpQVpwS0ltY2w2UW05aU90TzVtaW9peGdOaitwV1Nxb1VublZoTVE',
       rating: 4.5,
       description: 'High-quality wireless headphones with noise cancellation.'
     },
@@ -16,7 +16,7 @@ export const products = [
       price: 24.99,
       category: 'clothing',
       brand: 'FashionBrand',
-      image: 'https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736400_1280.png',
+      image: 'https://thehouseofrare.com/cdn/shop/files/gis-mens-solid-t-shirt-black27624_91fbdead-2d6e-4b23-a5b6-596ddf9ce756.jpg?v=1747223789',
       rating: 4.2,
       description: 'Comfortable cotton t-shirt in various colors.'
     },
@@ -36,7 +36,7 @@ export const products = [
       price: 199.99,
       category: 'electronics',
       brand: 'TechCorp',
-      image: 'https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736400_1280.png',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiqC-6d2zKGwkJEQj1dhyx9KzKY3_1v_bfhg&s',
       rating: 4.3,
       description: 'Feature-rich smartwatch with health tracking.'
     },
@@ -46,7 +46,7 @@ export const products = [
       price: 79.99,
       category: 'clothing',
       brand: 'FashionBrand',
-      image: 'https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736400_1280.png',
+      image: 'https://images.meesho.com/images/products/471584268/bnmyw_512.webp?width=512',
       rating: 4.1,
       description: 'Classic denim jeans with perfect fit.'
     },
@@ -56,7 +56,7 @@ export const products = [
       price: 49.99,
       category: 'books',
       brand: 'TechBooks',
-      image: 'https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736400_1280.png',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz_fc7luOUNIrzT66ywUxsbft4hhZ_srSegw&s',
       rating: 4.7,
       description: 'Advanced React patterns and techniques.'
     }
@@ -73,21 +73,7 @@ export const getProductById = (id) => {
     return products.filter(product => product.category === category);
   };
   
-  // Helper function to search products
-//   export const searchProducts = (query) => {
-//     if (!query) return products;
-    
-//     const lowerCaseQuery = query.toLowerCase();
-//     return products.filter(product => 
-//       product.title.toLowerCase().includes(lowerCaseQuery) ||
-//       product.description.toLowerCase().includes(lowerCaseQuery) ||
-//       product.category.toLowerCase().includes(lowerCaseQuery) ||
-//       product.brand.toLowerCase().includes(lowerCaseQuery)
-//     );
-//   };
 
-  // data/products.js
-// ... (previous code)
 
 // Enhanced search function with multiple filters
 export const searchProducts = (query, priceRange = [0, 300], category = '', brand = '') => {

@@ -123,14 +123,14 @@ const ProductDetails = () => {
                   <div className="flex items-center border border-gray-300 rounded-lg">
                     <button
                       onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
-                      className="p-2 text-gray-600 hover:text-indigo-600"
+                      className="p-2 text-gray-600 hover:text-indigo-600 cursor-pointer"
                     >
                       -
                     </button>
                     <span className="px-4 py-2">{quantity}</span>
                     <button
                       onClick={() => setQuantity(prev => prev + 1)}
-                      className="p-2 text-gray-600 hover:text-indigo-600"
+                      className="p-2 text-gray-600 hover:text-indigo-600 cursor-pointer"
                     >
                       +
                     </button>
@@ -139,7 +139,7 @@ const ProductDetails = () => {
 
                 <button
                   onClick={handleAddToCart}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
+                  className="w-full cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
                 >
                   <ShoppingCart className="h-5 w-5 mr-2 cursor-pointer"  />
                   Add to Cart
