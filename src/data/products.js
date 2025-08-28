@@ -74,14 +74,54 @@ export const getProductById = (id) => {
   };
   
   // Helper function to search products
-  export const searchProducts = (query) => {
-    if (!query) return products;
+//   export const searchProducts = (query) => {
+//     if (!query) return products;
     
-    const lowerCaseQuery = query.toLowerCase();
-    return products.filter(product => 
-      product.title.toLowerCase().includes(lowerCaseQuery) ||
-      product.description.toLowerCase().includes(lowerCaseQuery) ||
-      product.category.toLowerCase().includes(lowerCaseQuery) ||
-      product.brand.toLowerCase().includes(lowerCaseQuery)
+//     const lowerCaseQuery = query.toLowerCase();
+//     return products.filter(product => 
+//       product.title.toLowerCase().includes(lowerCaseQuery) ||
+//       product.description.toLowerCase().includes(lowerCaseQuery) ||
+//       product.category.toLowerCase().includes(lowerCaseQuery) ||
+//       product.brand.toLowerCase().includes(lowerCaseQuery)
+//     );
+//   };
+
+  // data/products.js
+// ... (previous code)
+
+// Enhanced search function with multiple filters
+export const searchProducts = (query, priceRange = [0, 300], category = '', brand = '') => {
+    let filteredProducts = products;
+    
+    // Apply search query filter
+    if (query) {
+      const lowerCaseQuery = query.toLowerCase();
+      filteredProducts = filteredProducts.filter(product => 
+        product.title.toLowerCase().includes(lowerCaseQuery) ||
+        product.description.toLowerCase().includes(lowerCaseQuery) ||
+        product.category.toLowerCase().includes(lowerCaseQuery) ||
+        product.brand.toLowerCase().includes(lowerCaseQuery)
+      );
+    }
+    
+    // Apply price range filter
+    filteredProducts = filteredProducts.filter(product => 
+      product.price >= priceRange[0] && product.price <= priceRange[1]
     );
+    
+    // Apply category filter
+    if (category) {
+      filteredProducts = filteredProducts.filter(product => 
+        product.category === category
+      );
+    }
+    
+    // Apply brand filter
+    if (brand) {
+      filteredProducts = filteredProducts.filter(product => 
+        product.brand === brand
+      );
+    }
+    
+    return filteredProducts;
   };

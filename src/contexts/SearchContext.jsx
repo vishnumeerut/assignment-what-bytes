@@ -7,20 +7,44 @@ const SearchContext = createContext();
 // Search provider component
 export const SearchProvider = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [priceRange, setPriceRange] = useState([0, 300]);
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [brandFilter, setBrandFilter] = useState('');
 
   const updateSearchQuery = (query) => {
     setSearchQuery(query);
   };
 
-  const clearSearchQuery = () => {
+  const updatePriceRange = (range) => {
+    setPriceRange(range);
+  };
+
+  const updateCategoryFilter = (category) => {
+    setCategoryFilter(category);
+  };
+
+  const updateBrandFilter = (brand) => {
+    setBrandFilter(brand);
+  };
+
+  const clearAllFilters = () => {
     setSearchQuery('');
+    setPriceRange([0, 300]);
+    setCategoryFilter('');
+    setBrandFilter('');
   };
 
   // Value object to be provided
   const value = {
     searchQuery,
+    priceRange,
+    categoryFilter,
+    brandFilter,
     updateSearchQuery,
-    clearSearchQuery
+    updatePriceRange,
+    updateCategoryFilter,
+    updateBrandFilter,
+    clearAllFilters
   };
 
   return (
