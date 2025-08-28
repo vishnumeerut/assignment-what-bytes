@@ -1,7 +1,8 @@
-// components/Sidebar.js
+// components/Sidebar.jsx
 import React, { useState } from 'react';
-import { Filter } from 'lucide-react';
+import { Filter, X } from 'lucide-react';
 import { products } from '../data/products';
+import { useSearch } from '../contexts/SearchContext';
 
 const Sidebar = () => {
   const [filters, setFilters] = useState({
@@ -9,13 +10,21 @@ const Sidebar = () => {
     priceRange: [0, 300],
     brand: ''
   });
+  
+  const { updateSearchQuery } = useSearch();
 
   // Get unique categories and brands from products
   const categories = [...new Set(products.map(p => p.category))];
   const brands = [...new Set(products.map(p => p.brand))];
 
   const updateFilter = (key, value) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
+    const newFilters = { ...filters, [key]: value };
+    setFilters(newFilters);
+    
+    // If category filter is applied, update search query
+    if (key === 'category' && value) {
+      updateSearchQuery(value);
+    }
   };
 
   const clearFilters = () => {
@@ -24,6 +33,7 @@ const Sidebar = () => {
       priceRange: [0, 300],
       brand: ''
     });
+    updateSearchQuery('');
   };
 
   return (
@@ -72,29 +82,14 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Brands */}
-      <div className="mb-6">
-        <h4 className="font-medium text-gray-700 mb-3">Brands</h4>
-        <div className="space-y-2">
-          {brands.map(brand => (
-            <label key={brand} className="flex items-center cursor-pointer hover:bg-gray-50 p-1 rounded">
-              <input
-                type="checkbox"
-                checked={filters.brand === brand}
-                onChange={(e) => updateFilter('brand', e.target.checked ? brand : '')}
-                className="mr-3 text-indigo-600 focus:ring-indigo-500"
-              />
-              <span className="text-sm">{brand}</span>
-            </label>
-          ))}
-        </div>
-      </div>
+
 
       {/* Clear Filters */}
       <button
         onClick={clearFilters}
-        className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+        className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center"
       >
+        <X className="h-4 w-4 mr-1" />
         Clear All Filters
       </button>
     </aside>

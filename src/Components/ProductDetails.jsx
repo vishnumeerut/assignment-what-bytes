@@ -36,7 +36,6 @@ const ProductDetails = () => {
     for (let i = 0; i < quantity; i++) {
       addToCart(product);
     }
-    alert(`${quantity} ${product.title} added to cart!`);
   };
 
   const renderStars = (rating) => {
@@ -142,7 +141,7 @@ const ProductDetails = () => {
                   onClick={handleAddToCart}
                   className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
                 >
-                  <ShoppingCart className="h-5 w-5 mr-2" />
+                  <ShoppingCart className="h-5 w-5 mr-2 cursor-pointer"  />
                   Add to Cart
                 </button>
               </div>

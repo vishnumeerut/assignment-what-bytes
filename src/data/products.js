@@ -62,8 +62,8 @@ export const products = [
     }
   ];
   
-  // Helper function to get product by ID
-  export const getProductById = (id) => {
+// Helper function to get product by ID
+export const getProductById = (id) => {
     return products.find(product => product.id === parseInt(id));
   };
   
@@ -71,4 +71,17 @@ export const products = [
   export const getProductsByCategory = (category) => {
     if (!category) return products;
     return products.filter(product => product.category === category);
+  };
+  
+  // Helper function to search products
+  export const searchProducts = (query) => {
+    if (!query) return products;
+    
+    const lowerCaseQuery = query.toLowerCase();
+    return products.filter(product => 
+      product.title.toLowerCase().includes(lowerCaseQuery) ||
+      product.description.toLowerCase().includes(lowerCaseQuery) ||
+      product.category.toLowerCase().includes(lowerCaseQuery) ||
+      product.brand.toLowerCase().includes(lowerCaseQuery)
+    );
   };

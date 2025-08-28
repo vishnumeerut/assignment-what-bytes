@@ -7,10 +7,12 @@ import Header from './Components/Header';
 import ProductDetails from './Components/ProductDetails';
 import Footer from './Components/Footer';
 import { CartProvider } from './contexts/CartContext';
+import { SearchProvider } from './contexts/SearchContext';
 
 function App() {
   return (
     <CartProvider>
+      <SearchProvider>
     <Router>
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Header />
@@ -27,6 +29,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </SearchProvider>
     </CartProvider>
   );
 }

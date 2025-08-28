@@ -1,13 +1,14 @@
-// components/Header.js
+// components/Header.jsx
 import React from 'react';
-import { Search, ShoppingCart, User, Gift } from 'lucide-react';
+import { Search, ShoppingCart, User, Gift, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
+import { useSearch } from '../contexts/SearchContext';
 
 const Header = () => {
   const navigate = useNavigate();
   const { getCartItemsCount } = useCart();
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const { searchQuery, updateSearchQuery, clearSearchQuery } = useSearch();
 
   const cartItemsCount = getCartItemsCount();
 
@@ -16,7 +17,11 @@ const Header = () => {
   };
 
   const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
+    updateSearchQuery(e.target.value);
+  };
+
+  const handleClearSearch = () => {
+    clearSearchQuery();
   };
 
   return (
@@ -24,7 +29,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => navigate('/')}>
             <Gift className="h-8 w-8 text-indigo-600" />
             <span className="text-xl font-bold text-gray-900">ShopEaster</span>
           </div>
@@ -35,11 +40,19 @@ const Header = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder="Search products by name, category, or brand..."
                 value={searchQuery}
                 onChange={handleSearchChange}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               />
+              {searchQuery && (
+                <button
+                  onClick={handleClearSearch}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
             </div>
           </div>
 
